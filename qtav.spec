@@ -133,7 +133,7 @@ mkdir build; pushd build
    QMAKE_CFLAGS="%{optflags}"                          \
    QMAKE_CXXFLAGS="%{optflags}"                        \
    QMAKE_LFLAGS="-Wl,--as-needed"                      \
-   CONFIG+="no_rpath recheck config_libass_link no_config_tests debug" \
+   CONFIG+="no_rpath recheck config_libass_link no-tests debug" \
    ..
 %make_build
 
@@ -223,7 +223,7 @@ fi
 
 %changelog
 * Fri Sep 02 2016 Martin Gansser <martinkg@fedoraproject.org> - 1.11.0-0.4gitc5db90b
-- Disabled config test by adding no_config_tests
+- Disabled config test by adding no-tests
 
 * Mon Aug 29 2016 Martin Gansser <martinkg@fedoraproject.org> - 1.11.0-0.3gitc5db90b
 - update to last git release
