@@ -7,7 +7,7 @@
 
 Name:           qtav
 Version:        1.11.0
-Release:        0.3git%{shortcommit0}%{?dist}
+Release:        0.4git%{shortcommit0}%{?dist}
 Summary:        A media playback framework based on Qt and FFmpeg
 License:        LGPLv2+ and GPLv3+ and BSD
 Group:          Development/Libraries
@@ -133,7 +133,7 @@ mkdir build; pushd build
    QMAKE_CFLAGS="%{optflags}"                          \
    QMAKE_CXXFLAGS="%{optflags}"                        \
    QMAKE_LFLAGS="-Wl,--as-needed"                      \
-   CONFIG+="no_rpath recheck config_libass_link debug" \
+   CONFIG+="no_rpath recheck config_libass_link no-tests debug" \
    ..
 %make_build
 
@@ -222,6 +222,9 @@ fi
 %{_datadir}/icons/hicolor/*/apps/QtAV.svg
 
 %changelog
+* Fri Sep 02 2016 Martin Gansser <martinkg@fedoraproject.org> - 1.11.0-0.4gitc5db90b
+- Disabled config test by adding no_config_tests
+
 * Mon Aug 29 2016 Martin Gansser <martinkg@fedoraproject.org> - 1.11.0-0.3gitc5db90b
 - update to last git release
 
