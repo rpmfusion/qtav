@@ -7,7 +7,7 @@
 
 Name:           qtav
 Version:        1.11.0
-Release:        0.5git%{shortcommit0}%{?dist}
+Release:        0.6git%{shortcommit0}%{?dist}
 Summary:        A media playback framework based on Qt and FFmpeg
 License:        LGPLv2+ and GPLv3+ and BSD
 Group:          Development/Libraries
@@ -130,9 +130,9 @@ cp -pr examples/* _tmpdoc/examples
 export CPATH="`pkg-config --variable=includedir libavformat`"
 mkdir build; pushd build
 %{_qt5_qmake} \
-   QMAKE_CFLAGS="%{optflags}"                          \
-   QMAKE_CXXFLAGS="%{optflags}"                        \
-   QMAKE_LFLAGS="-Wl,--as-needed"                      \
+   QMAKE_CFLAGS="${RPM_OPT_FLAGS}"                          \
+   QMAKE_CXXFLAGS="${RPM_OPT_FLAGS}"                        \
+   QMAKE_LFLAGS="${RPM_LD_FLAGS} -Wl,--as-needed"                      \
    CONFIG+="no_rpath recheck config_libass_link debug" \
    ..
 %make_build
@@ -222,6 +222,9 @@ fi
 %{_datadir}/icons/hicolor/*/apps/QtAV.svg
 
 %changelog
+* Sat Sep 17 2016 Leigh Scott <leigh123linux@googlemail.com> - 1.11.0-0.6gitbc46ae4
+- Add redhat flags to LDFLAGS
+
 * Sat Sep 17 2016 Martin Gansser <martinkg@fedoraproject.org> - 1.11.0-0.5gitbc46ae4
 - Update to 1.11.0-0.5gitbc46ae4
 - Dropped config option no_config_tests
