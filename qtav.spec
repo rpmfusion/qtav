@@ -1,5 +1,5 @@
-# https://github.com/wang-bin/QtAV/commit/c5db90b2ac4724808f738a39796f24a627704c31
-%global commit0 c5db90b2ac4724808f738a39796f24a627704c31
+# https://github.com/wang-bin/QtAV/commit/bc46ae44ac1406e575f9e694b556a7be2d55380e
+%global commit0 bc46ae44ac1406e575f9e694b556a7be2d55380e
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 
 %global project QtAV
@@ -7,7 +7,7 @@
 
 Name:           qtav
 Version:        1.11.0
-Release:        1.git%{shortcommit0}%{?dist}
+Release:        0.5git%{shortcommit0}%{?dist}
 Summary:        A media playback framework based on Qt and FFmpeg
 License:        LGPLv2+ and GPLv3+ and BSD
 Group:          Development/Libraries
@@ -17,7 +17,6 @@ Source0:        https://github.com/wang-bin/QtAV/archive/%{commit0}/%{project}-%
 BuildRequires:  desktop-file-utils
 BuildRequires:  qt5-qtbase-devel
 BuildRequires:  qt5-qtdeclarative-devel
-BuildRequires:  qt5-qtquickcontrols
 BuildRequires:  libass-devel
 BuildRequires:  ffmpeg-devel
 BuildRequires:  openal-soft-devel
@@ -134,7 +133,8 @@ mkdir build; pushd build
    QMAKE_CFLAGS="%{optflags}"                          \
    QMAKE_CXXFLAGS="%{optflags}"                        \
    QMAKE_LFLAGS="-Wl,--as-needed"                      \
-   CONFIG+="no_rpath recheck config_libass_link no-tests release" ..
+   CONFIG+="no_rpath recheck config_libass_link debug" \
+   ..
 %make_build
 
 %install
@@ -222,10 +222,9 @@ fi
 %{_datadir}/icons/hicolor/*/apps/QtAV.svg
 
 %changelog
-* Sat Sep 03 2016 Antonio Trande <sagitter@fedoraproject.org> - 1.11.0-1.gitc5db90b
-- Disable debug config
-- Fix Release tag (this is a post-stable-release)
-- Add qt5-qtquickcontrols as BR package
+* Sat Sep 17 2016 Martin Gansser <martinkg@fedoraproject.org> - 1.11.0-0.5gitbc46ae4
+- Update to 1.11.0-0.5gitbc46ae4
+- Dropped config option no_config_tests
 
 * Fri Sep 02 2016 Martin Gansser <martinkg@fedoraproject.org> - 1.11.0-0.4gitc5db90b
 - Disabled config test by adding no_config_tests
