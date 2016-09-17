@@ -7,7 +7,7 @@
 
 Name:           qtav
 Version:        1.11.0
-Release:        0.6git%{shortcommit0}%{?dist}
+Release:        1git%{shortcommit0}%{?dist}
 Summary:        A media playback framework based on Qt and FFmpeg
 License:        LGPLv2+ and GPLv3+ and BSD
 Group:          Development/Libraries
@@ -17,6 +17,7 @@ Source0:        https://github.com/wang-bin/QtAV/archive/%{commit0}/%{project}-%
 BuildRequires:  desktop-file-utils
 BuildRequires:  qt5-qtbase-devel
 BuildRequires:  qt5-qtdeclarative-devel
+BuildRequires:  qt5-qtquickcontrols
 BuildRequires:  libass-devel
 BuildRequires:  ffmpeg-devel
 BuildRequires:  openal-soft-devel
@@ -130,11 +131,11 @@ cp -pr examples/* _tmpdoc/examples
 export CPATH="`pkg-config --variable=includedir libavformat`"
 mkdir build; pushd build
 %{_qt5_qmake} \
-   QMAKE_CFLAGS="${RPM_OPT_FLAGS}"                          \
-   QMAKE_CXXFLAGS="${RPM_OPT_FLAGS}"                        \
-   QMAKE_LFLAGS="${RPM_LD_FLAGS} -Wl,--as-needed"                      \
-   CONFIG+="no_rpath recheck config_libass_link debug" \
-   ..
+   QMAKE_CFLAGS="${RPM_OPT_FLAGS}"                     \
+   QMAKE_CXXFLAGS="${RPM_OPT_FLAGS}"                   \
+   QMAKE_LFLAGS="${RPM_LD_FLAGS} -Wl,--as-needed"      \
+   QMAKE_STRIP=""                                      \
+   CONFIG+="no_rpath recheck config_libass_link release" ..
 %make_build
 
 %install
@@ -222,6 +223,12 @@ fi
 %{_datadir}/icons/hicolor/*/apps/QtAV.svg
 
 %changelog
+* Sat Sep 17 2016 Antonio Trande <sagitter@fedoraproject.org> - 1.11.0-1.gitbc46ae4
+- Disable debug config
+- Fix Release tag (this is a post-stable-release)
+- Add qt5-qtquickcontrols as BR package
+- Add QMAKE_STRIP=""
+
 * Sat Sep 17 2016 Leigh Scott <leigh123linux@googlemail.com> - 1.11.0-0.6gitbc46ae4
 - Add redhat flags to LDFLAGS
 
