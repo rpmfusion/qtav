@@ -1,5 +1,5 @@
-# https://github.com/wang-bin/QtAV/commit/bc46ae44ac1406e575f9e694b556a7be2d55380e
-%global commit0 bc46ae44ac1406e575f9e694b556a7be2d55380e
+# https://github.com/wang-bin/QtAV/commit/cf78e27f68fe032622a9778871199cb53d78ed35
+%global commit0 cf78e27f68fe032622a9778871199cb53d78ed35
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 
 %global project QtAV
@@ -7,7 +7,7 @@
 
 Name:           qtav
 Version:        1.11.0
-Release:        1git%{shortcommit0}%{?dist}
+Release:        2git%{shortcommit0}%{?dist}
 Summary:        A media playback framework based on Qt and FFmpeg
 License:        LGPLv2+ and GPLv3+ and BSD
 Group:          Development/Libraries
@@ -223,6 +223,9 @@ fi
 %{_datadir}/icons/hicolor/*/apps/QtAV.svg
 
 %changelog
+* Mon Sep 19 2016 Martin Gansser <martinkg@fedoraproject.org> - 1.11.0-2gitcf78e27
+- Update to 1.11.0-2gitcf78e27
+
 * Sat Sep 17 2016 Antonio Trande <sagitter@fedoraproject.org> - 1.11.0-1.gitbc46ae4
 - Disable debug config
 - Fix Release tag (this is a post-stable-release)
