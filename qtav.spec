@@ -7,7 +7,7 @@
 
 Name:           qtav
 Version:        1.11.0
-Release:        2git%{shortcommit0}%{?dist}
+Release:        3.git%{shortcommit0}%{?dist}
 Summary:        A media playback framework based on Qt and FFmpeg
 License:        LGPLv2+ and GPLv3+ and BSD
 Group:          Development/Libraries
@@ -223,6 +223,9 @@ fi
 %{_datadir}/icons/hicolor/*/apps/QtAV.svg
 
 %changelog
+* Mon Oct 17 2016 Martin Gansser <martinkg@fedoraproject.org> - 1.11.0-3.gitcf78e27
+- Fix BZ#4294: https://fedoraproject.org/wiki/Packaging:Versioning#Post-Release_packages
+
 * Mon Sep 19 2016 Martin Gansser <martinkg@fedoraproject.org> - 1.11.0-2gitcf78e27
 - Update to 1.11.0-2gitcf78e27
 
