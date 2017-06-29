@@ -1,13 +1,13 @@
-# https://github.com/wang-bin/QtAV/commit/cf78e27f68fe032622a9778871199cb53d78ed35
-%global commit0 cf78e27f68fe032622a9778871199cb53d78ed35
+# https://github.com/wang-bin/QtAV/commit/cbab79e3485f064d756b912c2e690d434275de8f
+%global commit0 cbab79e3485f064d756b912c2e690d434275de8f
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 
 %global project QtAV
 %global repo %{project}
 
 Name:           qtav
-Version:        1.11.0
-Release:        5.git%{shortcommit0}%{?dist}
+Version:        1.12.0
+Release:        1.git%{shortcommit0}%{?dist}
 Summary:        A media playback framework based on Qt and FFmpeg
 License:        LGPLv2+ and GPLv3+ and BSD
 Group:          Development/Libraries
@@ -18,6 +18,7 @@ BuildRequires:  desktop-file-utils
 BuildRequires:  qt5-qtbase-devel
 BuildRequires:  qt5-qtdeclarative-devel
 BuildRequires:  qt5-qtquickcontrols
+BuildRequires:  qt5-qtsvg-devel
 BuildRequires:  libass-devel
 BuildRequires:  ffmpeg-devel
 BuildRequires:  openal-soft-devel
@@ -223,6 +224,10 @@ fi
 %{_datadir}/icons/hicolor/*/apps/QtAV.svg
 
 %changelog
+* Thu Jun 29 2017 Martin Gansser <martinkg@fedoraproject.org> - 1.12.0-1gitcbab79e
+- Update to 1.12.0-1gitcbab79e
+- Add BR qt5-qtsvg-devel
+
 * Sat Apr 29 2017 Leigh Scott <leigh123linux@googlemail.com> - 1.11.0-5.gitcf78e27
 - Rebuild for ffmpeg update
 
