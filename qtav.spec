@@ -7,7 +7,7 @@
 
 Name:           qtav
 Version:        1.12.0
-Release:        3.git%{shortcommit0}%{?dist}
+Release:        4.git%{shortcommit0}%{?dist}
 Summary:        A media playback framework based on Qt and FFmpeg
 License:        LGPLv2+ and GPLv3+ and BSD
 Group:          Development/Libraries
@@ -224,6 +224,9 @@ fi
 %{_datadir}/icons/hicolor/*/apps/QtAV.svg
 
 %changelog
+* Thu Jan 18 2018 Leigh Scott <leigh123linux@googlemail.com> - 1.12.0-4.gitcbab79e
+- Rebuilt for ffmpeg-3.5 git
+
 * Mon Jan 15 2018 Nicolas Chauvet <kwizart@gmail.com> - 1.12.0-3.gitcbab79e
 - Update to VA-API 1.0.0
 
