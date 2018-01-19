@@ -1,5 +1,5 @@
 # https://github.com/wang-bin/QtAV/commit/cbab79e3485f064d756b912c2e690d434275de8f
-%global commit0 cbab79e3485f064d756b912c2e690d434275de8f
+%global commit0 bbf3c6404d01251a42093e515788d6f222986d1f
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 
 %global project QtAV
@@ -7,7 +7,7 @@
 
 Name:           qtav
 Version:        1.12.0
-Release:        4.git%{shortcommit0}%{?dist}
+Release:        5.git%{shortcommit0}%{?dist}
 Summary:        A media playback framework based on Qt and FFmpeg
 License:        LGPLv2+ and GPLv3+ and BSD
 Group:          Development/Libraries
@@ -224,6 +224,9 @@ fi
 %{_datadir}/icons/hicolor/*/apps/QtAV.svg
 
 %changelog
+* Fri Jan 19 2018 Leigh Scott <leigh123linux@googlemail.com> - 1.12.0-5.gitbbf3c64
+- Update to newer snapshot to fix ffmpeg build issue
+
 * Thu Jan 18 2018 Leigh Scott <leigh123linux@googlemail.com> - 1.12.0-4.gitcbab79e
 - Rebuilt for ffmpeg-3.5 git
 
