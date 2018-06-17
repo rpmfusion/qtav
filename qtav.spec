@@ -7,7 +7,7 @@
 
 Name:           qtav
 Version:        1.12.0
-Release:        7.git%{shortcommit0}%{?dist}
+Release:        8.git%{shortcommit0}%{?dist}
 Summary:        A media playback framework based on Qt and FFmpeg
 License:        LGPLv2+ and GPLv3+ and BSD
 Group:          Development/Libraries
@@ -157,25 +157,9 @@ ln -sfv %{_libdir}/libQtAVWidgets.so %{buildroot}%{_libdir}/libQt5AVWidgets.so
 %check
 desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
-%post -n lib%{name} -p /sbin/ldconfig
-%post -n lib%{name}widgets -p /sbin/ldconfig
+%ldconfig_scriptlets -n lib%{name}
+%ldconfig_scriptlets -n lib%{name}widgets
 
-%post players
-/usr/bin/update-desktop-database &> /dev/null || :
-touch --no-create %{_datadir}/icons/hicolor &>/dev/null ||:
-
-%postun -n lib%{name} -p /sbin/ldconfig
-%postun -n lib%{name}widgets -p /sbin/ldconfig
-
-%postun players
-/usr/bin/update-desktop-database &> /dev/null || :
-if [ $1 -eq 0 ]; then
-    touch --no-create %{_datadir}/icons/hicolor &>/dev/null ||:
-    /usr/bin/gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
-fi
-
-%posttrans players
-/usr/bin/gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 %files -n lib%{name}
 %doc README.md Changelog
@@ -224,6 +208,10 @@ fi
 %{_datadir}/icons/hicolor/*/apps/QtAV.svg
 
 %changelog
+* Sun Jun 17 2018 Leigh Scott <leigh123linux@googlemail.com> - 1.12.0-8.gitbbf3c64
+- Rebuild for new libass version
+- Remove obsolete scriptlets
+
 * Thu Mar 08 2018 RPM Fusion Release Engineering <leigh123linux@googlemail.com> - 1.12.0-7.gitbbf3c64
 - Rebuilt for new ffmpeg snapshot
 
