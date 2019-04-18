@@ -1,18 +1,18 @@
 # https://github.com/wang-bin/QtAV/commit/cbab79e3485f064d756b912c2e690d434275de8f
 %global commit0 bbf3c6404d01251a42093e515788d6f222986d1f
+%global gitdate 20180118
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 
 %global project QtAV
 %global repo %{project}
 
 Name:           qtav
-Version:        1.12.0
-Release:        11.git%{shortcommit0}%{?dist}
+Version:        1.12.1
+Release:        0.1.%{gitdate}git%{shortcommit0}%{?dist}
 Summary:        A media playback framework based on Qt and FFmpeg
 License:        LGPLv2+ and GPLv3+ and BSD
-Group:          Development/Libraries
-Url:            http://www.qtav.org/
-Source0:        https://github.com/wang-bin/QtAV/archive/%{commit0}/%{project}-%{commit0}.tar.gz#/%{project}-%{shortcommit0}.tar.gz
+URL:            http://www.qtav.org/
+Source0:        https://github.com/wang-bin/QtAV/archive/%{commit0}/%{project}-%{shortcommit0}.tar.gz
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  qt5-qtbase-devel
@@ -208,6 +208,13 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/icons/hicolor/*/apps/QtAV.svg
 
 %changelog
+* Thu Apr 18 2019 Leigh Scott <leigh123linux@googlemail.com> - 1.12.1-0.1.20180118gitbbf3c64
+- Rebuild for QT-5.12
+- Remove Group tag
+- Fix URL tag
+- Fix bad git versioning
+- Fix Source tag
+
 * Mon Mar 04 2019 RPM Fusion Release Engineering <leigh123linux@gmail.com> - 1.12.0-11.gitbbf3c64
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
 
