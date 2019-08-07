@@ -8,7 +8,7 @@
 
 Name:           qtav
 Version:        1.12.1
-Release:        0.1.%{gitdate}git%{shortcommit0}%{?dist}
+Release:        0.2.%{gitdate}git%{shortcommit0}%{?dist}
 Summary:        A media playback framework based on Qt and FFmpeg
 License:        LGPLv2+ and GPLv3+ and BSD
 URL:            http://www.qtav.org/
@@ -208,6 +208,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/icons/hicolor/*/apps/QtAV.svg
 
 %changelog
+* Wed Aug 07 2019 Leigh Scott <leigh123linux@gmail.com> - 1.12.1-0.2.20180118gitbbf3c64
+- Rebuild for new ffmpeg version
+
 * Thu Apr 18 2019 Leigh Scott <leigh123linux@googlemail.com> - 1.12.1-0.1.20180118gitbbf3c64
 - Rebuild for QT-5.12
 - Remove Group tag
