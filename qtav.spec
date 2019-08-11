@@ -1,18 +1,13 @@
-# https://github.com/wang-bin/QtAV/commit/cbab79e3485f064d756b912c2e690d434275de8f
-%global commit0 bbf3c6404d01251a42093e515788d6f222986d1f
-%global gitdate 20180118
-%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
-
 %global project QtAV
 %global repo %{project}
 
 Name:           qtav
-Version:        1.12.1
-Release:        0.2.%{gitdate}git%{shortcommit0}%{?dist}
+Version:        1.13.0
+Release:        1%{?dist}
 Summary:        A media playback framework based on Qt and FFmpeg
 License:        LGPLv2+ and GPLv3+ and BSD
 URL:            http://www.qtav.org/
-Source0:        https://github.com/wang-bin/QtAV/archive/%{commit0}/%{project}-%{shortcommit0}.tar.gz
+Source0:        https://github.com/wang-bin/QtAV/archive/v%{version}/%{project}-%{version}.tar.gz
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  qt5-qtbase-devel
@@ -110,7 +105,7 @@ High performance. User & developer friendly.
 This package contains the QtAV based players.
 
 %prep
-%autosetup -n %repo-%{commit0}
+%autosetup -n %repo-%{version}
 
 # E: script-without-shebang /usr/share/icons/hicolor/scalable/apps/QtAV.svg
 # ignore them src/QtAV.svg: SVG Scalable Vector Graphics image
@@ -208,6 +203,10 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/icons/hicolor/*/apps/QtAV.svg
 
 %changelog
+* Sun Aug 11 2019 Antonio Trande <sagitter@fedoraproject.org> - 1.13.0-1
+- Release 1.13.0
+- Switch to libswresample (rpf-bug #5350)
+
 * Wed Aug 07 2019 Leigh Scott <leigh123linux@gmail.com> - 1.12.1-0.2.20180118gitbbf3c64
 - Rebuild for new ffmpeg version
 
