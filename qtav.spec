@@ -3,7 +3,7 @@
 
 Name:           qtav
 Version:        1.13.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A media playback framework based on Qt and FFmpeg
 License:        LGPLv2+ and GPLv3+ and BSD
 URL:            http://www.qtav.org/
@@ -203,6 +203,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/icons/hicolor/*/apps/QtAV.svg
 
 %changelog
+* Mon Oct 07 2019 Leigh Scott <leigh123linux@googlemail.com> - 1.13.0-2
+- Rebuild for new Qt5 version
+
 * Sun Aug 11 2019 Antonio Trande <sagitter@fedoraproject.org> - 1.13.0-1
 - Release 1.13.0
 - Switch to libswresample (rpf-bug #5350)
