@@ -8,6 +8,7 @@ Summary:        A media playback framework based on Qt and FFmpeg
 License:        LGPLv2+ and GPLv3+ and BSD
 URL:            http://www.qtav.org/
 Source0:        https://github.com/wang-bin/QtAV/archive/v%{version}/%{project}-%{version}.tar.gz
+Patch0:         https://github.com/wang-bin/QtAV//commit/5abba7f0505e75fceabd4dd8992a7e02bb149d64.patch#/fix_qt514_build.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  qt5-qtbase-devel
@@ -105,7 +106,7 @@ High performance. User & developer friendly.
 This package contains the QtAV based players.
 
 %prep
-%autosetup -n %repo-%{version}
+%autosetup -p1 -n %repo-%{version}
 
 # E: script-without-shebang /usr/share/icons/hicolor/scalable/apps/QtAV.svg
 # ignore them src/QtAV.svg: SVG Scalable Vector Graphics image
