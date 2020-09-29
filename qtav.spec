@@ -3,12 +3,15 @@
 
 Name:           qtav
 Version:        1.13.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        A media playback framework based on Qt and FFmpeg
 License:        LGPLv2+ and GPLv3+ and BSD
 URL:            http://www.qtav.org/
 Source0:        https://github.com/wang-bin/QtAV/archive/v%{version}/%{project}-%{version}.tar.gz
 Patch0:         https://github.com/wang-bin/QtAV//commit/5abba7f0505e75fceabd4dd8992a7e02bb149d64.patch#/fix_qt514_build.patch
+
+# Fix builds with Qt-5.15.1
+Patch1:         qtav-fix_Qt515_builds.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  qt5-qtbase-devel
@@ -130,7 +133,7 @@ mkdir build; pushd build
 %{_qt5_qmake} \
    QMAKE_CFLAGS="${RPM_OPT_FLAGS}"                     \
    QMAKE_CXXFLAGS="${RPM_OPT_FLAGS}"                   \
-   QMAKE_LFLAGS="${RPM_LD_FLAGS} -Wl,--as-needed"      \
+   QMAKE_LFLAGS="${RPM_LD_FLAGS}"      \
    QMAKE_STRIP=""                                      \
    CONFIG+="no_rpath recheck config_libass_link release" ..
 %make_build
@@ -152,10 +155,6 @@ ln -sfv %{_libdir}/libQtAVWidgets.so %{buildroot}%{_libdir}/libQt5AVWidgets.so
 
 %check
 desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
-
-%ldconfig_scriptlets -n lib%{name}
-%ldconfig_scriptlets -n lib%{name}widgets
-
 
 %files -n lib%{name}
 %doc README.md Changelog
@@ -204,6 +203,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/icons/hicolor/*/apps/QtAV.svg
 
 %changelog
+* Tue Sep 29 2020 Antonio Trande <sagitter@fedoraproject.org> - 1.13.0-7
+- Rebuild for Qt_5.15.1
+
 * Tue Aug 18 2020 RPM Fusion Release Engineering <leigh123linux@gmail.com> - 1.13.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
 
