@@ -3,7 +3,7 @@
 
 Name:           qtav
 Version:        1.13.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        A media playback framework based on Qt and FFmpeg
 License:        LGPLv2+ and GPLv3+ and BSD
 URL:            http://www.qtav.org/
@@ -11,7 +11,10 @@ Source0:        https://github.com/wang-bin/QtAV/archive/v%{version}/%{project}-
 Patch0:         https://github.com/wang-bin/QtAV//commit/5abba7f0505e75fceabd4dd8992a7e02bb149d64.patch#/fix_qt514_build.patch
 
 # Fix builds with Qt-5.15.1
-Patch1:         qtav-fix_Qt515_builds.patch
+Patch1:         %{name}-fix_Qt515_builds.patch
+
+# Exclude avresample library (bug #5350)
+Patch2:         %{name}-avoid-avresample_dependency.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  qt5-qtbase-devel
@@ -55,7 +58,7 @@ Features include:
 
 %package -n lib%{name}
 Summary: QtAV library
-Requires: ffmpeg
+Requires: ffmpeg%{?_isa}
 
 %description -n lib%{name}
 QtAV is a multimedia playback library based on Qt and FFmpeg.
@@ -77,7 +80,7 @@ This package contains a set of widgets to play media.
 Summary: QtAV development files
 Requires: libqtav%{?_isa} = %{version}-%{release}
 Requires: libqtavwidgets%{?_isa} = %{version}-%{release}
-Requires: qt5-qtbase-devel
+Requires: qt5-qtbase-devel%{?_isa}
 
 %description devel
 QtAV is a multimedia playback library based on Qt and FFmpeg.
@@ -128,12 +131,12 @@ mkdir -p _tmpdoc/examples
 cp -pr examples/* _tmpdoc/examples
 
 %build
-export CPATH="`pkg-config --variable=includedir libavformat`"
-mkdir build; pushd build
+export CPATH="`pkg-config --variable=includedir libswresample`"
+mkdir -p build; pushd build
 %{_qt5_qmake} \
    QMAKE_CFLAGS="${RPM_OPT_FLAGS}"                     \
    QMAKE_CXXFLAGS="${RPM_OPT_FLAGS}"                   \
-   QMAKE_LFLAGS="${RPM_LD_FLAGS}"      \
+   QMAKE_LFLAGS="${RPM_LD_FLAGS}"                      \
    QMAKE_STRIP=""                                      \
    CONFIG+="no_rpath recheck config_libass_link release" ..
 %make_build
@@ -203,7 +206,10 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/icons/hicolor/*/apps/QtAV.svg
 
 %changelog
-* Fri Jan  1 2021 Leigh Scott <leigh123linux@gmail.com> - 1.13.0-8
+* Wed Jan 20 2021 Antonio Trande <sagitter@fedoraproject.org> - 1.13.0-9
+- Fix bug #5350
+
+* Fri Jan 01 2021 Leigh Scott <leigh123linux@gmail.com> - 1.13.0-8
 - Rebuilt for new ffmpeg snapshot
 
 * Tue Sep 29 2020 Antonio Trande <sagitter@fedoraproject.org> - 1.13.0-7
