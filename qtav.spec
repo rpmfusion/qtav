@@ -58,7 +58,7 @@ Features include:
 
 %package -n lib%{name}
 Summary: QtAV library
-Requires: ffmpeg%{?_isa}
+Requires: ffmpeg
 
 %description -n lib%{name}
 QtAV is a multimedia playback library based on Qt and FFmpeg.
