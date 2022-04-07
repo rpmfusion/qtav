@@ -1,9 +1,17 @@
 %global project QtAV
 %global repo %{project}
 
+# QTAV's builds fail with FFMpeg-5*
+# https://bugzilla.rpmfusion.org/show_bug.cgi?id=6271
+%if 0%{?fedora} > 35
+%bcond_without oldffmpeg
+%else
+%bcond_with oldffmpeg
+%endif
+
 Name:           qtav
 Version:        1.13.0
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        A media playback framework based on Qt and FFmpeg
 License:        LGPLv2+ and GPLv3+ and BSD
 URL:            http://www.qtav.org/
@@ -16,13 +24,21 @@ Patch1:         %{name}-fix_Qt515_builds.patch
 # Exclude avresample library (bug #5350)
 Patch2:         %{name}-avoid-avresample_dependency.patch
 
+# Fix avutil test during configuration
+# https://bugzilla.rpmfusion.org/show_bug.cgi?id=6271
+Patch3:         %{name}-fix-avutil_test.patch
+
 BuildRequires:  desktop-file-utils
 BuildRequires:  qt5-qtbase-devel
 BuildRequires:  qt5-qtdeclarative-devel
 BuildRequires:  qt5-qtquickcontrols
 BuildRequires:  qt5-qtsvg-devel
 BuildRequires:  libass-devel
+%if %{with oldffmpeg}
+BuildRequires:  compat-ffmpeg4-devel
+%else
 BuildRequires:  ffmpeg-devel
+%endif
 BuildRequires:  openal-soft-devel
 BuildRequires:  libXv-devel
 BuildRequires:  libva-devel
@@ -112,7 +128,14 @@ High performance. User & developer friendly.
 This package contains the QtAV based players.
 
 %prep
-%autosetup -p1 -n %repo-%{version}
+%autosetup -n %repo-%{version} -N
+
+%patch0 -p1 -b .backup
+%patch1 -p1 -b .backup
+%patch2 -p1 -b .backup
+%if %{with oldffmpeg}
+%patch3 -p1 -b .backup
+%endif
 
 # E: script-without-shebang /usr/share/icons/hicolor/scalable/apps/QtAV.svg
 # ignore them src/QtAV.svg: SVG Scalable Vector Graphics image
@@ -131,14 +154,24 @@ mkdir -p _tmpdoc/examples
 cp -pr examples/* _tmpdoc/examples
 
 %build
-export CPATH="`pkg-config --variable=includedir libswresample`"
 mkdir -p build; pushd build
+%if %{with oldffmpeg}
+export CPATH=" -I%{_includedir}/compat-ffmpeg4"
 %{_qt5_qmake} \
-   QMAKE_CFLAGS="${RPM_OPT_FLAGS}"                     \
-   QMAKE_CXXFLAGS="${RPM_OPT_FLAGS}"                   \
-   QMAKE_LFLAGS="${RPM_LD_FLAGS}"                      \
-   QMAKE_STRIP=""                                      \
+   QMAKE_CFLAGS="${RPM_OPT_FLAGS} -I%{_includedir}/compat-ffmpeg4" \
+   QMAKE_CXXFLAGS="${RPM_OPT_FLAGS} -I%{_includedir}/compat-ffmpeg4" \
+   QMAKE_LFLAGS="${RPM_LD_FLAGS} -L%{_libdir}/compat-ffmpeg4 -lavformat -lavcodec -lavutil -lavdevice -lavfilter -lswscale -lswresample" \
+   QMAKE_STRIP="" \
    CONFIG+="no_rpath recheck config_libass_link release" ..
+%else
+export CPATH="`pkg-config --variable=includedir libswresample`"
+%{_qt5_qmake} \
+   QMAKE_CFLAGS="${RPM_OPT_FLAGS}" \
+   QMAKE_CXXFLAGS="${RPM_OPT_FLAGS}" \
+   QMAKE_LFLAGS="${RPM_LD_FLAGS}" \
+   QMAKE_STRIP="" \
+   CONFIG+="no_rpath recheck config_libass_link release" ..
+%endif
 %make_build
 
 %install
@@ -206,6 +239,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/icons/hicolor/*/apps/QtAV.svg
 
 %changelog
+* Thu Apr 07 2022 Antonio Trande <sagitter@fedoraproject.org> - 1.13.0-15
+- Use compat-ffmpeg4 in Fedora 36+ (rfbz#6271)
+
 * Tue Apr 05 2022 Leigh Scott <leigh123linux@gmail.com> - 1.13.0-14
 - Rebuild for new QT5
 
