@@ -130,11 +130,11 @@ This package contains the QtAV based players.
 %prep
 %autosetup -n %repo-%{version} -N
 
-%patch0 -p1 -b .backup
-%patch1 -p1 -b .backup
-%patch2 -p1 -b .backup
+%patch -P0 -p1 -b .backup
+%patch -P1 -p1 -b .backup
+%patch -P2 -p1 -b .backup
 %if %{with oldffmpeg}
-%patch3 -p1 -b .backup
+%patch -P3 -p1 -b .backup
 %endif
 
 # E: script-without-shebang /usr/share/icons/hicolor/scalable/apps/QtAV.svg
