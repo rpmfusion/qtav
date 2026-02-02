@@ -11,7 +11,7 @@
 
 Name:           qtav
 Version:        1.13.0
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        A media playback framework based on Qt and FFmpeg
 License:        LGPLv2+ and GPLv3+ and BSD
 URL:            http://www.qtav.org/
@@ -239,6 +239,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/icons/hicolor/*/apps/QtAV.svg
 
 %changelog
+* Mon Feb 02 2026 RPM Fusion Release Engineering <sergiomb@rpmfusion.org> - 1.13.0-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sun Jul 27 2025 RPM Fusion Release Engineering <sergiomb@rpmfusion.org> - 1.13.0-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 
